@@ -1,38 +1,25 @@
-Name:		texlive-edichokey
-Version:	56223
-Release:	2
+%global tl_name edichokey
+%global tl_revision 56223
+
+Name:		texlive-%{tl_name}
+Epoch:		1
+Version:	2.01y
+Release:	%{tl_revision}.1
 Summary:	Typeset dichotomous identification keys
 Group:		Publishing
 URL:		https://www.ctan.org/tex-archive/macros/latex/contrib/edichokey
 License:	lppl1.3c
-Source0:	http://mirrors.ctan.org/systems/texlive/tlnet/archive/edichokey.r%{version}.tar.xz
-Source1:	http://mirrors.ctan.org/systems/texlive/tlnet/archive/edichokey.doc.r%{version}.tar.xz
+Source0:	https://mirrors.ctan.org/systems/texlive/tlnet/archive/edichokey.r%{tl_revision}.tar.xz
+Source1:	https://mirrors.ctan.org/systems/texlive/tlnet/archive/edichokey.doc.r%{tl_revision}.tar.xz
 BuildArch:	noarch
+BuildSystem:	texlive
 BuildRequires:	texlive-tlpkg
-Requires(pre):	texlive-tlpkg
-Requires(post):	texlive-kpathsea
+%texlive_base_requires
+Provides:	texlive(%{tl_name}) = %{tl_revision}
 
 %description
-This is a LaTeX package for typesetting dichotomous
-identification key in indented style. It can be considered as
-an extended version of package dichokey, as edichokey is more
-capable of dealing with complex keys.
+This is a LaTeX package for typesetting dichotomous identification key
+in indented style. It can be considered as an extended version of
+package dichokey, as edichokey is more capable of dealing with complex
+keys.
 
-%prep
-%autosetup -p1 -c -a1
-
-%build
-
-%install
-rm -rf tlpkg
-mkdir -p %{buildroot}%{_texmfdistdir}
-cp -a * %{buildroot}%{_texmfdistdir}
-
-%files
-%{_texmfdistdir}/tex/latex/edichokey
-%doc %{_texmfdistdir}/doc/latex/edichokey
-
-%post -p %{_sbindir}/texlive.post
-
-%postun
-[ "$1" -eq 0 ] && %{_sbindir}/texlive.post
